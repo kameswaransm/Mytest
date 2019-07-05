@@ -1,0 +1,160 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+<link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+<title>CodePen - Hard Work </title>
+<link rel="stylesheet" href="https://use.typekit.net/mca5lss.css">
+<style>
+      body {
+ background-color: #483C46;
+ overflow: hidden;
+ text-align:center;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+}
+
+body,
+html {
+ height: 100%;
+ width: 100%;
+ margin: 0;
+ padding: 0;
+}
+
+svg {
+ width: 100%;
+ height: 100%;
+ visibility: hidden;
+ 
+}
+
+text {
+ font-size: 84px;
+ font-family: base-mono-narrow, monospace;
+ font-family: zeitung-mono, sans-serif;
+font-weight: 700;
+font-style: normal;
+ 
+}
+    </style>
+<script>
+  window.console = window.console || function(t) {};
+</script>
+<script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+</head>
+<body translate="no">
+<svg viewBox="0 0 800 600" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<path class="myPath" fill="none" stroke="red" d="M496.7,343H303.3c-23.6,0-43-18.6-43-43s19.3-43,43-43h193.4c23.6,0,43,19.2,43,43
+  C539.7,323.8,520.3,343,496.7,343z" />
+</defs>
+<g class="work">
+<text x="-0">K</text>
+<text x="0">R</text>
+<text x="0">O</text>
+<text>W</text>
+</g>
+<g class="hard">
+<text x="-0">D</text>
+<text x="-0">R</text>
+<text>A</text>
+<text x="0">H</text>
+</g>
+</svg>
+<script src="https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js"></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/16327/TweenMax-latest-beta.js'></script>
+<script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/35984/ScrubGSAPTimeline_debug.js'></script>
+<script src='//s3-us-west-2.amazonaws.com/s.cdpn.io/16327/MorphSVGPlugin.min.js'></script>
+<script id="rendered-js">
+      var select = function (s) {
+  return document.querySelector(s);
+},
+selectAll = function (s) {
+  return document.querySelectorAll(s);
+},
+colorArray = ["#FFE74C", "#FF5964", "#6BF178", "#35A7FF"],
+offset = 0.165,
+workCount = 0;
+
+
+TweenMax.set('svg', {
+  visibility: 'visible' });
+
+
+var bezier = MorphSVGPlugin.pathDataToBezier('.myPath', {
+  offsetX: -0,
+  offsetY: -0 });
+
+
+TweenMax.set('text', {
+  transformOrigin: '50% 100%' });
+
+
+TweenMax.set('.hard text', {
+  fill: function (i) {
+    return colorArray[i];
+  } });
+
+TweenMax.set('.work text', {
+  fill: function (i) {
+    return colorArray[i];
+  } });
+
+
+var workTl = new TimelineMax();
+workTl.staggerTo('.work text', 2, {
+  bezier: {
+    type: "cubic",
+    values: bezier,
+    autoRotate: true },
+
+  repeat: -1,
+  ease: Linear.easeNone },
+offset);
+
+var hardTl = new TimelineMax();
+hardTl.staggerTo('.hard text', 2, {
+  bezier: {
+    type: "cubic",
+    values: bezier,
+    autoRotate: true },
+
+  repeat: -1,
+  ease: Linear.easeNone },
+offset);
+
+
+var mainTl = new TimelineMax({ paused: true });
+mainTl.add(workTl, 0).
+add(hardTl, 1);
+
+var seqTl = new TimelineMax({ repeat: -1 });
+seqTl.fromTo(mainTl, 2, {
+  time: 2.52 },
+{
+  time: 3.52,
+  ease: Expo.easeInOut }).
+
+fromTo(mainTl, 2, {
+  time: 3.52 },
+{
+  time: 4.52,
+  immediateRender: false,
+  ease: Expo.easeInOut });
+
+
+//ScrubGSAPTimeline(seqTl);
+
+//TweenMax.globalTimeScale(0.25)
+      //# sourceURL=pen.js
+    </script>
+</body>
+</html>
